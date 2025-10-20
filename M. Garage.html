@@ -1,0 +1,2231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentCar - Sewa Kendaraan Mudah & Cepat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.92));
+            backdrop-filter: blur(25px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(220, 38, 38, 0.08);
+            border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+        
+        .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 2rem;
+    font-weight: 900;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: -1px;
+}
+        
+        .logo-img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+        
+        .logo .marakti {
+            color: #E53935;
+        }
+        
+        .logo .garage {
+            color: #212121;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #000;
+        }
+        
+        nav {
+            transition: all 0.3s ease;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: all 0.3s ease;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #dc2626;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        nav a:hover {
+            color: #dc2626;
+        }
+        
+        .cta-btn {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .cta-btn:hover {
+            background: linear-gradient(135deg, #000, #1a1a1a);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Background Photos */
+        .bg-photo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .bg-photo.active {
+            opacity: 1;
+        }
+        
+        .bg-photo-1 {
+            background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(220,38,38,0.3)), 
+                        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        }
+        
+        .bg-photo-2 {
+            background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(220,38,38,0.3)), 
+                        url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        }
+        
+        .bg-photo-3 {
+            background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(220,38,38,0.3)), 
+                        url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80');
+        }
+        
+        .bg-photo-4 {
+            background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(220,38,38,0.3)), 
+                        url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        }
+        
+        .bg-photo-5 {
+            background: linear-gradient(135deg, rgba(0,0,0,0.65), rgba(220,38,38,0.25)), 
+                        url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        }
+        
+        .bg-photo-6 {
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(220,38,38,0.2)), 
+                        url('https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        }
+        
+        .bg-photo-7 {
+            background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(220,38,38,0.3)), 
+                        url('https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80');
+        }
+        
+        .bg-photo-8 {
+            background: linear-gradient(135deg, rgba(0,0,0,0.65), rgba(220,38,38,0.25)), 
+                        url('https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.2;
+        }
+        
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-bottom: 3rem;
+            color: #f1f5f9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 3rem;
+        }
+        
+        .hero-btn {
+            background: linear-gradient(135deg, #000, #1a1a1a);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .hero-btn:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(220,38,38,0.4);
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: 6rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #000;
+            position: relative;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #64748b;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            border-radius: 2px;
+        }
+        
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .car-grid {
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        }
+        
+        .motor-grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 1px solid #f1f5f9;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(220,38,38,0.05), rgba(0,0,0,0.02));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .product-card:hover::before {
+            opacity: 1;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            height: 220px;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+        
+        .product-info {
+            padding: 2rem;
+        }
+        
+        .product-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: #000;
+        }
+        
+        .product-specs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .product-price {
+            font-size: 1.3rem;
+            color: #dc2626;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .rent-btn {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(220,38,38,0.3);
+        }
+        
+        .rent-btn:hover {
+            background: linear-gradient(135deg, #000, #1a1a1a);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        /* About Section */
+        .about {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            position: relative;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #f1f5f9;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+        
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        
+        .feature h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #000;
+        }
+        
+        .feature p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+        
+        /* Reviews Slider */
+        .reviews-slider-container {
+            position: relative;
+            margin-bottom: 3rem;
+            overflow: hidden;
+        }
+        
+        .reviews-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 2rem;
+        }
+        
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(220, 38, 38, 0.9);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .slider-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .prev-btn {
+            left: -25px;
+        }
+        
+        .next-btn {
+            right: -25px;
+        }
+        
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: #dc2626;
+            transform: scale(1.2);
+        }
+        
+        .more-reviews-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .more-reviews-btn {
+            background: linear-gradient(135deg, #000, #1a1a1a);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .more-reviews-btn:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220,38,38,0.4);
+        }
+        
+        .review-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border: 1px solid #f1f5f9;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            min-width: 320px;
+            flex-shrink: 0;
+        }
+        
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+        
+        .review-avatar {
+            height: 180px;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .review-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .review-avatar::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+        
+        .review-content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .customer-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stars {
+            font-size: 1.3rem;
+        }
+        
+        .rating-text {
+            font-weight: 700;
+            color: #dc2626;
+            font-size: 1rem;
+        }
+        
+        .review-text {
+            color: #64748b;
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 1rem;
+            min-height: 60px;
+        }
+        
+        .vehicle-tag {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .review-date {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+        
+        /* Review Form */
+        .review-form-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border: 1px solid #f1f5f9;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .form-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 2rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            padding: 1rem;
+            border: 2px solid #f1f5f9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220,38,38,0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .star-rating {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .star {
+            font-size: 2rem;
+            color: #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .star:hover,
+        .star.active {
+            color: #fbbf24;
+            transform: scale(1.1);
+        }
+        
+        .submit-review-btn {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(220,38,38,0.3);
+            display: block;
+            margin: 2rem auto 0;
+        }
+        
+        .submit-review-btn:hover {
+            background: linear-gradient(135deg, #000, #1a1a1a);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .submit-review-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .review-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #dc2626;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #000, #1a1a1a);
+            color: white;
+            padding: 4rem 0 2rem;
+            position: relative;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: #dc2626;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            margin-bottom: 0.8rem;
+            display: block;
+            transition: color 0.3s ease;
+            line-height: 1.6;
+        }
+        
+        .footer-section a:hover {
+            color: #dc2626;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            text-align: center;
+            color: #94a3b8;
+        }
+
+        .rental-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.bg-photo.active {
+    z-index: 0;
+}
+
+.product-card, .rent-btn {
+    position: relative;
+    z-index: 10;
+}
+
+.rental-modal {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+.rental-modal img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.review-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 10px;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.review-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* crop tengah */
+    border-radius: 50%;
+}
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(248, 250, 252, 0.97), rgba(241, 245, 249, 0.95));
+                backdrop-filter: blur(25px);
+                box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 4px 12px rgba(220, 38, 38, 0.08);
+                border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+                padding: 2rem 0;
+            }
+            
+            nav li {
+                width: 100%;
+                text-align: center;
+                padding: 1rem 0;
+                border-bottom: 1px solid #f1f5f9;
+            }
+            
+            .bg-photo {
+                background-attachment: scroll;
+                position: fixed;
+                z-index: -1;
+                pointer-events: none;
+            }
+            
+            .hero {
+                padding: 2rem 0;
+            }
+            
+            .section {
+                padding: 4rem 0;
+            }
+            
+            .car-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .motor-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .feature {
+                padding: 2rem 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+    .logo-img {
+        width: 45px;
+        height: 45px;
+    }
+    .logo {
+        font-size: 1.5rem;
+    }
+}
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .product-card {
+                border-radius: 15px;
+            }
+            
+            .product-info {
+                padding: 1.5rem;
+            }
+            
+            .motor-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .reviews-slider {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .review-card {
+                min-width: 100%;
+            }
+            
+            .slider-btn {
+                display: none;
+            }
+            
+            .review-form-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .star-rating {
+                justify-content: center;
+            }
+            
+            .review-stats {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .stat-item {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* All Reviews Page */
+        .all-reviews-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(248,250,252,0.98);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            overflow-y: auto;
+            padding-top: 120px;
+        }
+        
+        .all-reviews-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .back-btn {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(220,38,38,0.3);
+            margin-bottom: 2rem;
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(135deg, #000, #1a1a1a);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .all-reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .delete-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+.delete-btn:hover {
+  background: #b91c1c;
+}
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .product-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .product-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        
+        .product-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        
+        .product-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        /* Modal Overlay */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* Isi Modal */
+.modal-content {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 700px;
+  width: 90%;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  animation: fadeIn 0.4s ease;
+}
+
+/* Tombol close */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 2rem;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Slider */
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.slides img {
+  display: none;
+  width: 100%;
+  border-radius: 15px;
+}
+
+.slider-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 10px;
+}
+
+.slider-nav button {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 0.6rem 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.slider-nav button:hover {
+  background: black;
+}
+
+/* Input form */
+.rental-form input {
+  width: 90%;
+  padding: 0.8rem;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.rental-form button {
+  margin-top: 15px;
+}
+
+/* Animasi */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+    </style>
+</head>
+
+<!-- Modal Popup -->
+<div id="rentalModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2 id="modalProductName"></h2>
+
+    <!-- Slider Foto -->
+    <div class="slider-container">
+      <div class="slides">
+        <img src="" id="slide1" alt="Foto 1">
+        <img src="" id="slide2" alt="Foto 2">
+        <img src="" id="slide3" alt="Foto 3">
+        <img src="" id="slide4" alt="Foto 4">
+      </div>
+      <div class="slider-nav">
+        <button onclick="prevSlide()">❮</button>
+        <button onclick="nextSlide()">❯</button>
+      </div>
+    </div>
+
+    <!-- Form Input -->
+    <div class="rental-form">
+      <input type="text" id="renterName" placeholder="Nama Anda" required>
+      <input type="number" id="rentalDays" placeholder="Durasi sewa (hari)" min="1" required>
+      <button class="rent-btn" onclick="confirmRental()">Sewa Sekarang</button>
+    </div>
+  </div>
+</div>
+
+<div id="rentalModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2 id="modalProductName"></h2>
+
+    <div class="slider-container">
+      <div class="slides">
+        <img src="" id="slide1" alt="Foto 1">
+        <img src="" id="slide2" alt="Foto 2">
+        <img src="" id="slide3" alt="Foto 3">
+        <img src="" id="slide4" alt="Foto 4">
+      </div>
+      <div class="slider-nav">
+        <button onclick="prevSlide()">❮</button>
+        <button onclick="nextSlide()">❯</button>
+      </div>
+    </div>
+
+    <div class="rental-form">
+      <input type="text" id="renterName" placeholder="Nama Anda" required>
+      <input type="number" id="rentalDays" placeholder="Durasi sewa (hari)" min="1" required>
+      <button class="rent-btn" onclick="confirmRental()">Sewa Sekarang</button>
+    </div>
+  </div>
+</div>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="goToHome()" style="cursor: pointer;">
+    <img src="MG_logo.png" alt="Logo Marakti Garage" class="logo-img">
+    <div class="logo-text">
+        <span class="marakti">MARAKTI</span>
+        <span class="garage">GARAGE</span>
+    </div>
+</div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                <nav id="nav-menu">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#mobil">Mobil</a></li>
+                        <li><a href="#motor">Motor</a></li>
+                        <li><a href="#review">Review</a></li>
+                        <li><a href="#tentang">Tentang Kami</a></li>
+                        <li><a href="#kontak">Kontak</a></li>
+                        <li><a href="#booking" class="cta-btn">Booking Sekarang</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Sewa Kendaraan Mudah & Cepat</h1>
+                <p>Pilihan mobil dan motor terbaik untuk kebutuhan Anda</p>
+                <a href="#mobil" class="hero-btn">Lihat Kendaraan</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Background Photos -->
+    <div class="bg-photo bg-photo-1 active"></div>
+    <div class="bg-photo bg-photo-2"></div>
+    <div class="bg-photo bg-photo-3"></div>
+    <div class="bg-photo bg-photo-4"></div>
+    <div class="bg-photo bg-photo-5"></div>
+    <div class="bg-photo bg-photo-6"></div>
+    <div class="bg-photo bg-photo-7"></div>
+    <div class="bg-photo bg-photo-8"></div>
+
+    <!-- Mobil Section -->
+    <section id="mobil" class="section" style="background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(248,250,252,0.88)), url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'); background-size: cover; background-position: center; background-attachment: fixed; backdrop-filter: blur(15px); position: relative; z-index: 2;">
+        <div class="container">
+            <h2 class="section-title">Pilihan Mobil</h2>
+            <p class="section-subtitle">Kendaraan berkualitas tinggi dengan harga terjangkau untuk perjalanan Anda</p>
+            <div class="product-grid car-grid">
+                <div class="product-card">
+                    <div class="product-image">🚗</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Toyota Avanza</h3>
+                        <div class="product-specs">
+                            <span class="spec-item">👥 7 Kursi</span>
+                            <span class="spec-item">⛽ Manual</span>
+                            <span class="spec-item">❄️ AC</span>
+                        </div>
+                        <p class="product-price">Rp 300.000 / hari</p>
+                        <button class="rent-btn" onclick="rentVehicle('Toyota Avanza')">Sewa Sekarang</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🚙</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Honda HR-V</h3>
+                        <div class="product-specs">
+                            <span class="spec-item">👥 5 Kursi</span>
+                            <span class="spec-item">⚙️ CVT</span>
+                            <span class="spec-item">❄️ AC</span>
+                        </div>
+                        <p class="product-price">Rp 450.000 / hari</p>
+                        <button class="rent-btn" onclick="rentVehicle('Honda HR-V')">Sewa Sekarang</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🚐</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Mitsubishi Pajero</h3>
+                        <div class="product-specs">
+                            <span class="spec-item">👥 7 Kursi</span>
+                            <span class="spec-item">🚗 4WD</span>
+                            <span class="spec-item">❄️ AC</span>
+                        </div>
+                        <p class="product-price">Rp 650.000 / hari</p>
+                        <button class="rent-btn" onclick="rentVehicle('Mitsubishi Pajero')">Sewa Sekarang</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Motor Section -->
+    <section id="motor" class="section" style="background: linear-gradient(135deg, rgba(248,250,252,0.90), rgba(255,255,255,0.88)), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'); background-size: cover; background-position: center; background-attachment: fixed; backdrop-filter: blur(15px); position: relative; z-index: 2;">
+        <div class="container">
+            <h2 class="section-title">Pilihan Motor</h2>
+            <p class="section-subtitle">Motor berkualitas untuk mobilitas harian yang praktis dan ekonomis</p>
+            <div class="product-grid motor-grid">
+                <div class="product-card">
+                    <div class="product-image">🛵</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Honda Vario</h3>
+                        <div class="product-specs">
+                            <span class="spec-item">⛽ 125cc</span>
+                            <span class="spec-item">🔋 Injeksi</span>
+                        </div>
+                        <p class="product-price">Rp 75.000 / hari</p>
+                        <button class="rent-btn" onclick="rentVehicle('Honda Vario')">Sewa Sekarang</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🛴</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Yamaha NMax</h3>
+                        <div class="product-specs">
+                            <span class="spec-item">⛽ 155cc</span>
+                            <span class="spec-item">🔋 Blue Core</span>
+                        </div>
+                        <p class="product-price">Rp 85.000 / hari</p>
+                        <button class="rent-btn" onclick="rentVehicle('Yamaha NMax')">Sewa Sekarang</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🛵</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Honda PCX</h3>
+                        <div class="product-specs">
+                            <span class="spec-item">⛽ 160cc</span>
+                            <span class="spec-item">🔋 eSP+</span>
+                        </div>
+                        <p class="product-price">Rp 90.000 / hari</p>
+                        <button class="rent-btn" onclick="rentVehicle('Honda PCX')">Sewa Sekarang</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🏍️</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Kawasaki Ninja</h3>
+                        <div class="product-specs">
+                            <span class="spec-item">⛽ 250cc</span>
+                            <span class="spec-item">🏁 Sport</span>
+                        </div>
+                        <p class="product-price">Rp 150.000 / hari</p>
+                        <button class="rent-btn" onclick="rentVehicle('Kawasaki Ninja')">Sewa Sekarang</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="review" class="section" style="background: rgba(248,250,252,0.98); backdrop-filter: blur(10px); position: relative; z-index: 2;">
+        <div class="container">
+            <h2 class="section-title">Review Pelanggan</h2>
+            <p class="section-subtitle">Testimoni dari pelanggan yang telah mempercayai layanan kami</p>
+
+            <section id="reviews">
+  <h2>Ulasan Pelanggan</h2>
+  <div id="review-list"></div>
+</section>
+            
+            <!-- Review Form -->
+            <div class="review-form-container">
+                <h3 class="form-title">Tulis Review Anda</h3>
+                <form id="reviewForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-input" id="customerName" placeholder="Masukkan nama Anda" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Kendaraan yang Disewa</label>
+                            <select class="form-select" id="vehicleSelect" required>
+                                <option value="">Pilih kendaraan</option>
+                                <option value="Toyota Avanza">Toyota Avanza</option>
+                                <option value="Honda HR-V">Honda HR-V</option>
+                                <option value="Mitsubishi Pajero">Mitsubishi Pajero</option>
+                                <option value="Honda Vario">Honda Vario</option>
+                                <option value="Yamaha NMax">Yamaha NMax</option>
+                                <option value="Honda PCX">Honda PCX</option>
+                                <option value="Kawasaki Ninja">Kawasaki Ninja</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Rating</label>
+                        <div class="star-rating" id="starRating">
+                            <span class="star" data-rating="1">⭐</span>
+                            <span class="star" data-rating="2">⭐</span>
+                            <span class="star" data-rating="3">⭐</span>
+                            <span class="star" data-rating="4">⭐</span>
+                            <span class="star" data-rating="5">⭐</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Upload Foto (Opsional)</label>
+                        <input type="file" class="form-input" id="reviewImage" accept="image/*">
+                        <div id="imagePreview" class="image-preview" style="display: none;">
+                            <img id="previewImg" src="" alt="Preview" style="max-width: 200px; max-height: 150px; border-radius: 10px; margin-top: 10px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Komentar</label>
+                        <textarea class="form-textarea" id="reviewComment" placeholder="Bagikan pengalaman Anda..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-review-btn">Kirim Review</button>
+                </form>
+            </div>
+
+            <!-- Reviews Slider -->
+            <div class="reviews-slider-container">
+                <div class="reviews-slider" id="reviewsSlider">
+                    <div class="review-card">
+                        <div class="review-avatar">👨‍💼</div>
+                        <div class="review-content">
+                            <div class="customer-name">Ahmad Rizki</div>
+                            <div class="rating">
+                                <span class="stars">⭐⭐⭐⭐⭐</span>
+                                <span class="rating-text">5.0</span>
+                            </div>
+                            <div class="review-text">"Pelayanan sangat memuaskan! Mobil bersih dan terawat dengan baik. Proses booking mudah dan cepat."</div>
+                            <span class="vehicle-tag">Toyota Avanza</span>
+                            <div class="review-date">15 Nov 2024</div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-avatar">👩‍💼</div>
+                        <div class="review-content">
+                            <div class="customer-name">Sari Dewi</div>
+                            <div class="rating">
+                                <span class="stars">⭐⭐⭐⭐⭐</span>
+                                <span class="rating-text">5.0</span>
+                            </div>
+                            <div class="review-text">"HR-V nya nyaman banget untuk perjalanan jauh. AC dingin, mesin halus. Recommended!"</div>
+                            <span class="vehicle-tag">Honda HR-V</span>
+                            <div class="review-date">12 Nov 2024</div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-avatar">👨‍🎓</div>
+                        <div class="review-content">
+                            <div class="customer-name">Budi Santoso</div>
+                            <div class="rating">
+                                <span class="stars">⭐⭐⭐⭐⭐</span>
+                                <span class="rating-text">5.0</span>
+                            </div>
+                            <div class="review-text">"Motor irit dan responsif. Cocok untuk harian ke kantor. Harga sewa juga terjangkau."</div>
+                            <span class="vehicle-tag">Honda Vario</span>
+                            <div class="review-date">10 Nov 2024</div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-avatar">👩‍🦰</div>
+                        <div class="review-content">
+                            <div class="customer-name">Maya Putri</div>
+                            <div class="rating">
+                                <span class="stars">⭐⭐⭐⭐⭐</span>
+                                <span class="rating-text">5.0</span>
+                            </div>
+                            <div class="review-text">"NMax nya keren! Matic yang nyaman dan stylish. Puas banget sama pelayanannya."</div>
+                            <span class="vehicle-tag">Yamaha NMax</span>
+                            <div class="review-date">08 Nov 2024</div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-avatar">👨‍💻</div>
+                        <div class="review-content">
+                            <div class="customer-name">Eko Prasetyo</div>
+                            <div class="rating">
+                                <span class="stars">⭐⭐⭐⭐⭐</span>
+                                <span class="rating-text">5.0</span>
+                            </div>
+                            <div class="review-text">"Perfect untuk family trip! Pajero tangguh dan nyaman untuk 7 orang. Terima kasih RentCar!"</div>
+                            <span class="vehicle-tag">Mitsubishi Pajero</span>
+                            <div class="review-date">05 Nov 2024</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="slider-btn prev-btn" id="prevBtn">‹</button>
+                <button class="slider-btn next-btn" id="nextBtn">›</button>
+                <div class="slider-dots" id="sliderDots"></div>
+            </div>
+            
+            <div class="more-reviews-container">
+                <button class="more-reviews-btn" id="moreReviewsBtn" onclick="showAllReviews()">
+                    Lihat Semua Review (5)
+                </button>
+            </div>
+            
+            <div class="review-stats">
+                <div class="stat-item">
+                    <div class="stat-number">4.9</div>
+                    <div class="stat-label">Rating Rata-rata</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Review Positif</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Kepuasan Pelanggan</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="tentang" class="section about" style="background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); position: relative; z-index: 2;">
+        <div class="container">
+            <h2 class="section-title">Mengapa Memilih Kami?</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon" style="color: #dc2626;">💰</div>
+                    <h3>Harga Terjangkau</h3>
+                    <p>Dapatkan harga sewa terbaik dengan kualitas kendaraan yang prima dan pelayanan memuaskan.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon" style="color: #000;">⚡</div>
+                    <h3>Proses Cepat</h3>
+                    <p>Booking mudah dan cepat hanya dalam hitungan menit. Kendaraan siap pakai langsung.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon" style="color: #dc2626;">🔧</div>
+                    <h3>Kendaraan Terawat</h3>
+                    <p>Semua kendaraan selalu dalam kondisi prima dan terawat dengan perawatan rutin berkala.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Reviews Page (Hidden by default) -->
+    <div id="allReviewsPage" class="all-reviews-page" style="display: none;">
+        <div class="container">
+            <div class="all-reviews-header">
+                <button class="back-btn" onclick="hideAllReviews()">← Kembali</button>
+                <h2 class="section-title">Semua Review Pelanggan</h2>
+                <p class="section-subtitle">Baca semua testimoni dari pelanggan yang telah menggunakan layanan kami</p>
+            </div>
+            <div class="all-reviews-grid" id="allReviewsGrid">
+                <!-- Reviews will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="kontak">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Kontak Kami</h3>
+                    <p>📍 Jl. Sudirman No. 123, Jakarta Pusat</p>
+                    <p>📞 WhatsApp: +62 812-3456-7890</p>
+                    <p>✉️ Email: info@rentcar.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Jam Operasional</h3>
+                    <p>Senin - Jumat: 08:00 - 20:00</p>
+                    <p>Sabtu - Minggu: 09:00 - 18:00</p>
+                    <p>Hari Libur: 10:00 - 16:00</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Media Sosial</h3>
+                    <a href="#" target="_blank">📘 Facebook</a>
+                    <a href="#" target="_blank">📷 Instagram</a>
+                    <a href="#" target="_blank">🐦 Twitter</a>
+                    <a href="#" target="_blank">💼 LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 RentCar. Semua hak cipta dilindungi undang-undang.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const nav = document.getElementById('nav-menu');
+            nav.classList.toggle('active');
+        }
+
+        // Go to home function
+        function goToHome() {
+            // Hide all reviews page if open
+            hideAllReviews();
+            
+            // Scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu after clicking
+                    const nav = document.getElementById('nav-menu');
+                    nav.classList.remove('active');
+                }
+            });
+        });
+
+        // Enhanced header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(248, 250, 252, 0.97), rgba(241, 245, 249, 0.95))';
+                header.style.backdropFilter = 'blur(30px)';
+                header.style.boxShadow = '0 8px 32px rgba(0,0,0,0.15), 0 4px 12px rgba(220, 38, 38, 0.12)';
+                header.style.borderBottom = '1px solid rgba(220, 38, 38, 0.15)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.92))';
+                header.style.backdropFilter = 'blur(25px)';
+                header.style.boxShadow = '0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(220, 38, 38, 0.08)';
+                header.style.borderBottom = '1px solid rgba(220, 38, 38, 0.1)';
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const nav = document.getElementById('nav-menu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
+                nav.classList.remove('active');
+            }
+        });
+
+        // Background photo switching
+        let currentPhoto = 0;
+        const photos = document.querySelectorAll('.bg-photo');
+        
+        function switchBackground() {
+            photos[currentPhoto].classList.remove('active');
+            currentPhoto = (currentPhoto + 1) % photos.length;
+            photos[currentPhoto].classList.add('active');
+        }
+        
+        // Switch background every 4 seconds
+        setInterval(switchBackground, 4000);
+        
+        // Also switch on scroll
+        let lastScrollY = window.scrollY;
+        let scrollTimeout;
+        
+        window.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const currentScrollY = window.scrollY;
+                const scrollDifference = Math.abs(currentScrollY - lastScrollY);
+                
+                // Switch background if scrolled more than 200px
+                if (scrollDifference > 200) {
+                    switchBackground();
+                    lastScrollY = currentScrollY;
+                }
+            }, 100);
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Star rating functionality
+        let selectedRating = 0;
+const stars = document.querySelectorAll('.star');
+
+// klik bintang
+stars.forEach((star, index) => {
+    star.addEventListener('click', () => {
+        selectedRating = index + 1;
+        updateStars();
+    });
+});
+
+// hover efek
+stars.forEach((star, index) => {
+    star.addEventListener('mouseover', () => highlightStars(index + 1));
+});
+document.getElementById('starRating').addEventListener('mouseleave', updateStars);
+
+function highlightStars(rating) {
+    stars.forEach((star, i) => star.classList.toggle('active', i < rating));
+}
+function updateStars() {
+    highlightStars(selectedRating);
+}
+        
+        // Avatar generator
+        function getRandomAvatar() {
+            const avatars = ['👨‍💼', '👩‍💼', '👨‍🎓', '👩‍🦰', '👨‍💻', '👩‍🔬', '👨‍🎨', '👩‍🏫', '👨‍⚕️', '👩‍💻'];
+            return avatars[Math.floor(Math.random() * avatars.length)];
+        }
+        
+        // Format date
+       function formatDate(date) {
+    return date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+        
+        // Image preview functionality
+        document.getElementById('reviewImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            const previewImg = document.getElementById('previewImg');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+
+        // Reviews slider functionality
+        let reviewsData = [];
+        const maxSlides = 10;
+        
+        function initializeSlider() {
+            const slider = document.getElementById('reviewsSlider');
+            const dots = document.getElementById('sliderDots');
+            const cards = slider.children;
+            
+            // Store initial reviews
+            reviewsData = Array.from(cards).map(card => card.outerHTML);
+            
+            updateSliderView();
+            createDots();
+        }
+        
+        function updateSliderView() {
+            const slider = document.getElementById('reviewsSlider');
+            const visibleCards = Math.min(3, window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3);
+            const cardWidth = 320 + 32; // card width + gap
+            const offset = currentSlide * cardWidth;
+            
+            slider.style.transform = `translateX(-${offset}px)`;
+            updateDots();
+        }
+        
+        function createDots() {
+            const dotsContainer = document.getElementById('sliderDots');
+            const totalSlides = Math.min(reviewsData.length, maxSlides);
+            const visibleCards = Math.min(3, window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3);
+            const maxSlideIndex = Math.max(0, totalSlides - visibleCards);
+            
+            dotsContainer.innerHTML = '';
+            
+            for (let i = 0; i <= maxSlideIndex; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                dot.addEventListener('click', () => {
+                    currentSlide = i;
+                    updateSliderView();
+                });
+                dotsContainer.appendChild(dot);
+            }
+        }
+        
+        function updateDots() {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+        
+        // Slider navigation
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSliderView();
+            }
+        });
+        
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            const totalSlides = Math.min(reviewsData.length, maxSlides);
+            const visibleCards = Math.min(3, window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3);
+            const maxSlideIndex = Math.max(0, totalSlides - visibleCards);
+            
+            if (currentSlide < maxSlideIndex) {
+                currentSlide++;
+                updateSliderView();
+            }
+        });
+        
+        // Auto-slide functionality
+        setInterval(() => {
+            const totalSlides = Math.min(reviewsData.length, maxSlides);
+            const visibleCards = Math.min(3, window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3);
+            const maxSlideIndex = Math.max(0, totalSlides - visibleCards);
+            
+            if (currentSlide < maxSlideIndex) {
+                currentSlide++;
+            } else {
+                currentSlide = 0;
+            }
+            updateSliderView();
+        }, 5000);
+        
+        // Show/Hide all reviews page
+        function showAllReviews() {
+            const allReviewsPage = document.getElementById('allReviewsPage');
+            const allReviewsGrid = document.getElementById('allReviewsGrid');
+            
+            // Populate all reviews
+            allReviewsGrid.innerHTML = reviewsData.join('');
+            
+            // Show page
+            allReviewsPage.style.display = 'block';
+        }
+        
+        function hideAllReviews() {
+            const allReviewsPage = document.getElementById('allReviewsPage');
+            allReviewsPage.style.display = 'none';
+        }
+        
+        // Add event listener for back button
+        document.addEventListener('DOMContentLoaded', function() {
+            const backBtn = document.querySelector('.back-btn');
+            if (backBtn) {
+                backBtn.addEventListener('click', hideAllReviews);
+            }
+        });
+        
+        // Review form submission
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('customerName').value;
+            const vehicle = document.getElementById('vehicleSelect').value;
+            const comment = document.getElementById('reviewComment').value;
+            const imageFile = document.getElementById('reviewImage').files[0];
+            
+            if (!selectedRating) {
+                alert('Silakan berikan rating terlebih dahulu!');
+                return;
+            }
+            
+            const starsHtml = '⭐'.repeat(selectedRating);
+            const currentDate = formatDate(new Date());
+            
+            // Create avatar content (image or emoji)
+            let avatarContent = getRandomAvatar();
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarContent = `<img src="${e.target.result}" alt="Review Image">`;
+                    createAndAddReview(name, vehicle, comment, starsHtml, selectedRating, currentDate, avatarContent);
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                createAndAddReview(name, vehicle, comment, starsHtml, selectedRating, currentDate, avatarContent);
+            }
+            
+            // Reset form
+            this.reset();
+            selectedRating = 0;
+            updateStars();
+            document.getElementById('imagePreview').style.display = 'none';
+
+            let selectedRating = 0;
+
+document.querySelectorAll('.star').forEach((star, index) => {
+    star.addEventListener('click', () => {
+        selectedRating = index + 1;
+        updateStars(selectedRating);
+    });
+});
+
+function updateStars(rating) {
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+        star.classList.toggle('active', index < rating);
+    });
+}
+        });
+        
+        function createAndAddReview(name, vehicle, comment, starsHtml, rating, date, avatarContent) {
+    const reviewHTML = `
+        <div class="review-card">
+            <div class="review-avatar">${avatarContent}</div>
+            <div class="review-content">
+                <div class="customer-name">${name}</div>
+                <div class="rating">
+                    <span class="stars">${starsHtml}</span>
+                    <span class="rating-text">${rating.toFixed(1)}</span>
+                </div>
+                <div class="review-text">"${comment}"</div>
+                <div class="review-footer">
+                    <span class="vehicle-tag">${vehicle}</span>
+                    <button class="delete-btn" onclick="deleteReview(this)">Hapus</button>
+                </div>
+                <div class="review-date">${date}</div>
+            </div>
+        </div>
+    `;
+
+    const slider = document.getElementById('reviewsSlider');
+    slider.insertAdjacentHTML('afterbegin', reviewHTML);
+    alert('✅ Review berhasil dikirim!');
+}
+
+function deleteReview(button) {
+    const reviewCard = button.closest('.review-card');
+    reviewCard.remove();
+}
+
+// Hapus review
+function deleteReview(button) {
+    const reviewCard = button.closest('.review-card');
+    reviewCard.remove();
+
+
+            reviewsData.unshift(reviewCardHtml);
+    const slider = document.getElementById('reviewsSlider');
+    slider.innerHTML = reviewsData.join('');
+
+                function deleteReview(button) {
+    const reviewCard = button.closest('.review-card');
+    reviewCard.remove();
+}                      
+            // Add to beginning of reviews data
+            reviewsData.unshift(reviewCardHtml);
+            
+            // Limit to max slides
+            if (reviewsData.length > maxSlides) {
+                reviewsData = reviewsData.slice(0, maxSlides);
+            }
+            
+            // Update slider
+            slider.innerHTML = reviewsData.join('');
+            
+            // Reset to first slide
+            currentSlide = 0;
+            updateSliderView();
+            createDots();
+            
+            // Show success message
+            alert('Terima kasih! Review Anda telah berhasil dikirim dan langsung tampil di website.');
+        }
+        
+        // Initialize slider on page load
+        window.addEventListener('load', () => {
+            initializeSlider();
+        });
+        
+        // Update slider on window resize
+        window.addEventListener('resize', () => {
+            createDots();
+            updateSliderView();
+        });
+    </script>
+
+<!-- Modal sewa kendaraan -->
+<div id="rentalModal" class="rental-overlay" style="display:none;">
+  <div class="rental-modal">
+    <h2 id="modalProductName">Nama Kendaraan</h2>
+    <div class="slides">
+      <img src="" alt="Foto kendaraan" style="width:100%; border-radius:10px;">
+    </div>
+    <div class="slide-controls" style="margin:10px 0;">
+      <button onclick="prevSlide()">◀</button>
+      <button onclick="nextSlide()">▶</button>
+    </div>
+    <label>Nama Anda:</label>
+    <input type="text" id="renterName" placeholder="Masukkan nama Anda">
+    <label>Durasi sewa (hari):</label>
+    <input type="number" id="rentalDays" min="1" value="1">
+    <div style="margin-top:10px;">
+      <button onclick="confirmRental()">Sewa Sekarang</button>
+      <button onclick="closeModal()">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-storage.js"></script>
+
+<script>
+    const firebaseConfig = {
+  apiKey: "AIzaSyCG8A_JKmXvk02wR-B3pHyKtyW6mA0K8Xk",
+  authDomain: "marakti-garage.firebaseapp.com",
+  projectId: "marakti-garage",
+  storageBucket: "marakti-garage.firebasestorage.app",
+  messagingSenderId: "416483939849",
+  appId: "1:416483939849:web:80915fb03f6e629eef0ad8"
+};
+
+firebase.innitalizeApp(firebaseConfig);
+
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+</script>
+
+<script type="module">
+  import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-storage.js";
+
+  // Submit form
+  document.getElementById('reviewForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('customerName').value.trim();
+    const vehicle = document.getElementById('vehicleSelect').value.trim();
+    const comment = document.getElementById('reviewComment').value.trim();
+    const imageFile = document.getElementById('reviewImage').files[0];
+
+    if (!name || !vehicle || !comment) {
+        alert("Harap isi semua kolom sebelum mengirim review!");
+        return;
+    }
+
+    if (!selectedRating) {
+        alert('Silakan pilih bintang rating terlebih dahulu!');
+        return;
+    }
+
+    const starsHtml = '⭐'.repeat(selectedRating);
+    const currentDate = formatDate(new Date());
+
+    if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            createAndAddReview(name, vehicle, comment, starsHtml, selectedRating, currentDate, `<img src="${e.target.result}" alt="Foto" style="width:40px;height:40px;border-radius:50%;">`);
+        };
+        reader.readAsDataURL(imageFile);
+    } else {
+        createAndAddReview(name, vehicle, comment, starsHtml, selectedRating, currentDate, getRandomAvatar());
+    }
+
+    // reset form
+    this.reset();
+    selectedRating = 0;
+    updateStars();
+    document.getElementById('imagePreview').style.display = 'none';
+});
+
+  // Menampilkan review
+  async function loadReviews() {
+    const querySnapshot = await getDocs(collection(db, "reviews"));
+    const container = document.getElementById('reviews');
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const reviewCard = `
+        <div class="review-card">
+          <div class="review-avatar">
+            ${data.imageUrl ? `<img src="${data.imageUrl}" alt="${data.name}" />` : '👤'}
+          </div>
+          <div class="review-content">
+            <div class="customer-name">${data.name}</div>
+            <div class="review-text">"${data.text}"</div>
+            <div class="review-date">${new Date(data.date).toLocaleDateString()}</div>
+          </div>
+        </div>`;
+      container.innerHTML += reviewCard;
+    });
+  }
+
+  loadReviews();
+</script>
+
+<script>
+let currentSlide = 0;
+let selectedProduct = '';
+let productImages = [];
+
+function rentVehicle(name) {
+  selectedProduct = name;
+  document.getElementById('modalProductName').textContent = name;
+
+  const gallery = {
+    "Toyota Avanza": ["img/avanza1.jpg", "img/avanza2.jpg", "img/avanza3.jpg", "img/avanza4.jpg"],
+    "Honda HR-V": ["img/hrv1.jpg", "img/hrv2.jpg", "img/hrv3.jpg", "img/hrv4.jpg"],
+    "Mitsubishi Pajero": ["img/pajero1.jpg", "img/pajero2.jpg", "img/pajero3.jpg", "img/pajero4.jpg"],
+    "Honda Vario": ["img/vario1.jpg", "img/vario2.jpg", "img/vario3.jpg", "img/vario4.jpg"],
+    "Yamaha NMax": ["img/nmax1.jpg", "img/nmax2.jpg", "img/nmax3.jpg", "img/nmax4.jpg"],
+    "Honda PCX": ["img/pcx1.jpg", "img/pcx2.jpg", "img/pcx3.jpg", "img/pcx4.jpg"],
+    "Kawasaki Ninja": ["img/ninja1.jpg", "img/ninja2.jpg", "img/ninja3.jpg", "img/ninja4.jpg"]
+  };
+
+  productImages = gallery[name] || [];
+  currentSlide = 0;
+  showSlide(currentSlide);
+
+  document.getElementById('rentalModal').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('rentalModal').style.display = 'none';
+}
+
+function showSlide(i) {
+  const img = document.querySelector('.slides img');
+  if (productImages.length > 0) {
+    img.src = productImages[i];
+  } else {
+    img.src = '';
+  }
+}
+
+function prevSlide() {
+  if (productImages.length === 0) return;
+  currentSlide = (currentSlide - 1 + productImages.length) % productImages.length;
+  showSlide(currentSlide);
+}
+
+function nextSlide() {
+  if (productImages.length === 0) return;
+  currentSlide = (currentSlide + 1) % productImages.length;
+  showSlide(currentSlide);
+}
+
+function confirmRental() {
+  const name = document.getElementById('renterName').value.trim();
+  const days = document.getElementById('rentalDays').value.trim();
+  if (!name || !days) {
+    alert('Harap isi nama dan durasi sewa.');
+    return;
+  }
+
+  const msg = `Halo Admin, saya ${name} ingin menyewa ${selectedProduct} selama ${days} hari, apakah unit ready?`;
+  const encoded = encodeURIComponent(msg);
+  window.open(`https://wa.me/6288232338661?text=${encoded}`, '_blank');
+
+  closeModal();
+}
+</script>
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98acd6b526c58982',t:'MTc1OTgzNDIzOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
